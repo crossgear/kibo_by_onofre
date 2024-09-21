@@ -1,0 +1,184 @@
+/*Barra de navegacion*/
+
+.navbar-collapse {
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar-brand img{
+    width: 80px;
+}
+
+#buscador {
+    width: 50%;
+}
+
+/* Carruser */
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.card img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.card {
+    margin: 0 0.5em;
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    border: none;
+    border-radius: 0;
+}
+.carousel-inner {
+    padding: 1em;
+}
+
+.carousel-control-prev,.carousel-control-next {
+    background-color: #e1e1e1;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.card .descuento{
+    margin-top: .5em;
+    margin-left: .5em;
+    margin-bottom: 0px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    background-color: rgb(191, 0, 25);
+    width: 2.5em;
+    border-radius: 15%;
+    position: absolute;
+}
+
+
+
+aside{
+    width: 17%;
+    height: 757px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.select_buscador{
+    width: 70%;
+}
+
+
+.precio{
+    width: 70%;
+}
+
+.carousel-indicators .active {
+    background-color: #413F42;
+    
+}
+
+.carousel-indicators li {
+    position: relative;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    background-color: #7F8487;
+  }
+
+.lista_productos{
+    width: 55%;
+}
+
+.info_compra{
+    width: 35%;
+}
+
+.border-top{
+    border-top: 1.5px solid #abb0b4 !important;
+}
+
+/* Mensaje Advertencia */
+
+.mensaje, .mensaje_flash{
+    width: 300px;
+    box-sizing: border-box;
+    background-color: rgb(26, 26, 26);
+    border: 2px solid rgb(1, 3, 23);
+    color: rgb(0, 166, 255);
+    border-radius: 4%;
+    position: absolute;
+    margin: 0% 50%;
+    padding: 10px 20px;
+    transform: translate(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.mensaje{
+    display: none;
+}
+
+.mensaje h2, .mensaje_flash h2{
+    margin: 0;
+}
+
+.carousel-indicators{
+    bottom: -10px;
+}
+
+.mensaje button, .mensaje_flash button {
+    background-color: rgb(215, 215, 6);
+    color: black;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*Producto seleccionado*/
+
+.producto{
+    margin-bottom: 12%;
+}
+
+#prod-especifico form input {
+    width: 30%;
+}
+
+
+/*Subtotal al finalizar compra*/
+.col_subtotal {
+    text-align: end;
+    color: red;
+}
+
+.logo_paypal{
+    margin: 20px 0 20px 0;
+    width: 50%;
+}
+
+#bt_finalizar{
+    position: absolute;
+    right: 5%;
+}
+
+.nav-link{
+    cursor: pointer;
+}
+
+
+
+
+/*-----------Footer-------------*/
+footer img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}

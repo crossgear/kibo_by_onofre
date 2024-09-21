@@ -1,0 +1,35 @@
+{% extends '/dashboard/dashboard.html' %}
+
+{% block scripts %}{% endblock %}
+
+{% block css %}
+    {{super()}}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_template.css') }}">
+{% endblock %}
+
+{% block h1 %}Productos con Escasez de Stock{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Stock Disponible</th>
+                <th>Stock Mínimo</th>
+                <th>Stock Ideal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+                <tr>
+                    <td>{{producto.id}}</td>
+                    <td>{{producto.nombre}}</td>
+                    <td class="stock">{{producto.stock_disponible}}</td>
+                    <td class="stock">{{producto.stock_minimo}}</td>
+                    <td class="stock">{{producto.stock_ideal}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

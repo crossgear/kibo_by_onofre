@@ -1,0 +1,79 @@
+@media only screen and (max-width: 600px) {
+    .collapse{
+        padding-top: 5px;
+    }
+    #buscador {
+        width: 100%;
+    }
+    #tipo{
+        width: 54%;
+    }
+
+    aside{
+        display: none;
+    }
+    .ultimos_productos{
+        display: none;
+    }
+    .grandes_descuentos{
+        display: none;
+    }
+    section .card{
+        width: 43% !important;
+    }
+    section{
+        padding-left: 0px !important;
+        width: 100% !important;
+    }
+    .buscador_main{
+        flex-wrap: wrap !important;
+    }
+    .buscador_card h5{
+        font-size: medium;
+    }
+    .buscador_card p{
+        font-size: small;
+    }
+    .lista_productos {
+        width: 100%;
+    }
+    .info_compra {
+        width: 90%;
+        padding-left: 5%;
+    }
+    .direccion_finalizar{
+        width: 90% !important;
+        
+    }
+    .brand, .redes{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+  }
+
+@media only screen and (min-width: 992px) {
+    #tipo{
+        width: 25%;
+    }
+    .ultimos_productos_2{
+        display: none;
+    }
+    .grandes_descuentos_2{
+        display: none;
+    }
+    section{
+        padding-left: 3rem !important;
+        width: 75% !important;
+    }
+    .contenido_finalizar{
+        display: flex;
+    }
+    .main_finalizar{
+        min-height: 550px;
+    }
+    .card{
+        max-height: 468px;
+    }
+    
+}

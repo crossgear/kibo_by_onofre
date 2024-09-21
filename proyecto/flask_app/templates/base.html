@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!--metadatos-->
+        <meta charset="UTF-8">
+        <meta name="author" content="Alison Ibarrola, Rodrigo Salinas, Tadeo Molinas, Víctor Giménez">
+        <meta name="description" content="aplicación web para venta de productos electrónicos.">
+        <meta name="keywords" content="ventas, informática, electrónico, productos, electrónica">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--título-->
+        <title>Kibo</title>
+        <!--favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.png') }}">
+        <!-- javascript -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script type="text/javascript" src="../static/js/calcular_total.js"></script>
+        <script type="text/javascript" src="../static/js/filtro.js"></script>
+        <script type="text/javascript" src="../static/js/mensaje_producto_registro.js"></script>
+        <script type="text/javascript" src="../static/js/mensaje_producto_update.js"></script>
+        <script type="text/javascript" src="../static/js/scripts.js"></script>
+        <!--bootsrap-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <!--css-->
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/responsive.css">
+        <!--font--> 
+    </head>
+    <body class="bg-light">
+        
+        <!--Errores Flash-->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="mensaje_flash">
+                <h2>¡Advertencia!</h2>
+                <ul>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+                </ul>
+                <button id="aceptar_flash" onclick="desaparecerboton()" class="botones">Aceptar</button>
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <!---Barra Navegación/Buscador-->
+        <header>
+            <nav class="navbar navbar-expand-lg  navbar-dark bg-dark ">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">
+                        <img src="../static/images/logo_principal.svg" alt="logo de la pagina web">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+                        <form id="buscador" class="d-flex" action="/buscador" method="POST">
+                            <select name="tipo" class="form-control" id="tipo" value="{{tipo}}">
+                                <option value="nombre">Nombre</option>
+                                <option value="id" >ID</option>
+                                <option value="marca" >Marca</option>
+                                <option value="categoria" >Categoría</option>
+                            </select>
+                            <input class="form-control me-2" type="search" placeholder="Buscar" name="busqueda" aria-label="Buscar" value="{{busqueda}}">
+                            <input type="submit" class="btn btn-primary" value="Buscar">
+                        </form>
+
+                        <div class="navbar-nav d-flex">
+                            <ul class="navbar-nav d-flex justify-content-center align-items-center">
+                                {% if session["user_id"] %}
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="{{ url_for('mostrar_carrito') }}">Carrito</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                                    </li>
+                                {%else%}
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="{{ url_for('mostrar_carrito') }}">Carrito</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="modal" data-target="#registro">Registrarse</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="modal" data-target="#inicio">Iniciar Sesión</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        {% block content %}{% endblock %}
+
+        <!---Ventana Emergente Registro/Login-->
+        <div class="modal fade" id="inicio">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Login</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="{{url_for('login')}}" method="POST">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input class="form-control" type="text" name="correo">
+                                <label for="contraseña_login">Contraseña:</label>
+                                <input class="form-control" id="contraseña_login" type="password" name="contraseña">
+                            </div>
+                        </div>
+                    
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">    
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="registro">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- cabecera del diálogo -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registro</h4>
+                        <button type="button" class="close" data-dismiss="modal">X</button>
+                    </div>
+                    <!-- cuerpo del diálogo -->
+                    <form action="{{url_for('registro')}}" method="POST">
+                        <div class="modal-body">
+                            
+                            <div class="form-group">    
+                                <label for="nombre">Nombre:</label>
+                                <input class="form-control" id="nombre" type="text" name="nombre">
+                                <label for="apellido">Apellido:</label>
+                                <input class="form-control" id="apellido" type="text" name="apellido">
+                                <label for="celular">Telefono:</label>
+                                <input class="form-control" id="celular" type="text" name="celular">
+                                <label for="direccion">Dirección:</label>
+                                <input class="form-control" id="direccion" type="text" name="direccion">
+                                <label for="correo">Email:</label>
+                                <input class="form-control" id="correo" type="text" name="correo">
+                                <label for="contraseña">Contraseña:</label>
+                                <input class="form-control" id="contraseña" type="password" name="contraseña">
+                                <label for="confi">Confirmacion:</label>
+                                <input class="form-control" id="confi" type="password" name="confi">  
+                            </div>
+                        </div>
+                        <!-- pie del diálogo -->
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary mt-2">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top pl-5 pr-5 mt-0" >
+        <div class="brand col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <img src="../static/images/logo.png" alt="kibo logo">
+          </a>
+          <span class="mb-3 mb-md-0 text-muted">&copy; 2022 Kibo, Inc</span>
+        </div>
+        <div class="redes">
+            <div>
+                <h6>Siguenos en nuestras redes:</h6>
+                <ul class="justify-content-center list-unstyled d-flex">
+                  <li class="ms-3"><a class="text-muted" href="#"><img src="../static/images/twitter.svg" alt="twitter icon"></a></li>
+                  <li class="ms-3"><a class="text-muted" href="#"><img src="../static/images/instagram.svg" alt="instagram icon"></a></li>
+                  <li class="ms-3"><a class="text-muted" href="#"><img src="../static/images/facebook.svg" alt="facebook icon"></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</html>

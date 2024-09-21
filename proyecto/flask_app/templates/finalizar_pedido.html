@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <main class="main_finalizar ml-1">
+            <div class="mt-5 pt-2 pr-2">
+                <form action="">
+                    <div class="contenido_finalizar justify-content-around">
+                        <div class="lista_productos">
+                            <table class="table table-hover">
+                                <thead class="text-right">
+                                    <th class="text-left">Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>SubTotal</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    {% for producto in productos %}
+                                        <tr class="text-right">
+                                            <td class="text-left">{{producto.nombre}}</td>
+                                            <td>{{session['carrito'][loop.index0][1]}}</td>
+                                            <td><span class="subtotales">{{ producto.obtener_precio(producto.id) | int *  session['carrito'][loop.index0][1] | int }}</span> Gs.</td>
+                                            <td><a href="/carrito_delete/{{producto.id}}">Eliminar</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr class="border-top">
+                                        <th>Costo Total</th>
+                                        <td></td>
+                                        <td class="text-right" id="total"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="info_compra">
+                            <div class="row justify-content-around">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{usuario.nombre}}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido" name="apellido" value="{{usuario.apellido}}" disabled>
+                                </div>
+                            </div>
+                            <div class="row justify-content-around pt-3">
+                                <div class="form-group">
+                                    <label for="telefono">Telefono</label>
+                                    <input type="number" class="form-control" id="telefono" name="telefono" value="{{usuario.celular}}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{usuario.correo}}" disabled>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center pt-3 pl-1 pr-1">
+                                <div class="direccion_finalizar form-group w-100">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" class="form-control w-100" id="direccion" name="direccion" value="{{usuario.direccion}}" disabled>
+                                </div>
+                            </div>
+                            <h5 class="pt-3">Medio de pago:</h5>
+                            <img class="logo_paypal" src="../static/images/paypal.svg" alt="logo de la paypal">
+                            <!-- <div class="d-flex justify-content-end ">
+                                <input type="submit" class="btn btn-primary" value="Terminar compra">
+                            </div> -->
+                        </div>
+                    </div>
+                </form>
+                <form name="topaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="sb-42bec22313938@business.example.com">
+                    <input type="hidden" name="item_name" value="articulos"><!--NOMBRE DE ARTICULOS-->
+                    <input type="hidden" name="item_number" value="{{ventas.obtener_id_venta()+1}}"><!--NUMERO PARA SEGUIMIENTOS-->
+                    <input type="hidden" name="no_shipping" value="1">
+                    <input type="hidden" name="amount" value="" id="amount">
+                    <input type="hidden" name="return" value="http://127.0.0.1:5000/pago_exitoso/">
+                    <input type="hidden" name="cancel_return" value="http://127.0.0.1:5000/pago_cancelado/">
+                    <div class="d-flex justify-content-end mb-5 mr-4">
+                        <input type="submit" value="Terminar Compra" name="submit" class="btn btn-primary ml-5" id="bt_finalizar">
+                    </div>
+                </form>
+            </div>
+        </main>
+{% endblock %}

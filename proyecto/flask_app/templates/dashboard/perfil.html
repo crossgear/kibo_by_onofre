@@ -1,0 +1,35 @@
+{% extends '/dashboard/dashboard.html' %}
+
+{% block scripts %}{% endblock %}
+
+{% block h1 %}Editar Perfil{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+<form id="miForm" action="/dashboard/user/{{user.id}}" method="POST">
+
+<div class="form-group">    
+    <label for="nombre">Nombre:</label>
+    <input class="form-control" id="nombre" type="text" name="nombre" value="{% if user.nombre == None %}{% else %}{{user.nombre}}{% endif %}">
+    <label for="apellido">Apellido:</label>
+    <input class="form-control" id="apellido" type="text" name="apellido" value="{% if user.apellido == None %}{% else %}{{user.apellido}}{% endif %}">
+    <label for="celular">Telefono:</label>
+    <input class="form-control" id="celular" type="text" name="celular" value="{% if user.celular == None %}{% else %}{{user.celular}}{% endif %}">
+    <label for="direccion">Dirección:</label>
+    <input class="form-control" id="direccion" type="text" name="direccion" value="{% if user.direccion == None %}{% else %}{{user.direccion}}{% endif %}">
+    <label for="correo">Email:</label>
+    <input class="form-control" id="correo" type="text" name="correo" value="{% if user.correo == None %}{% else %}{{user.correo}}{% endif %}">
+</div>
+
+
+<div class="botones">
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a class="btn btn-primary" href="/dashboard" role="button">Atras</a>
+</div>
+
+</form>
+
+</div>
+{% endblock %}

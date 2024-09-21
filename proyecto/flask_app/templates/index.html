@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        <main>
+            <div class="container">
+                <div class="ultimos_productos mt-5">
+                    <h3 class="mb-3">Nuevos productos:</h3>
+                    <div id="carruselNuevos" class="carousel slide rounded p-2" data-ride="carousel">
+                        {%if lista_ultimos|length > 1 %}     
+                            <ol class="carousel-indicators">
+                                <li data-target="#carruselNuevos" data-slide-to="0" class="active"></li>
+                                <li data-target="#carruselNuevos" data-slide-to="1"></li>
+                                <li data-target="#carruselNuevos" data-slide-to="2"></li>
+                            </ol>
+                        {%endif%}
+                        <div class="carousel-inner">
+                            {%for productos in lista_ultimos%}
+                                {%if loop.index == 1%}
+                                    <div class="carousel-item active">
+                                        <div class="cards-wrapper">
+                                            {%for producto in productos%}
+                                                <div class="card rounded p-2" style="width: 18rem;">
+                                                    <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
+                                                    <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <a href="/producto_seleccionado/{{producto.id}}">
+                                                            <h5 class="card-title">{{producto.nombre}}</h5>
+                                                        </a>
+                                                        {% if producto.descuento  %} 
+                                                            <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                            <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                        {% else %}
+                                                            <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                                                        {% endif %} 
+                                                    </div>
+                                                </div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                {%else%}
+                                    <div class="carousel-item">
+                                        <div class="cards-wrapper">
+                                        {%for producto in productos%}
+                                            <div class="card rounded p-2" style="width: 18rem;">
+                                                <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
+                                                <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <a href="/producto_seleccionado/{{producto.id}}">
+                                                        <h5 class="card-title">{{producto.nombre}}</h5>
+                                                    </a>
+                                                    {% if producto.descuento  %} 
+                                                        <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                        <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                    {% else %}
+                                                        <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                                                    {% endif %} 
+                                                </div>
+                                            </div>
+                                        {%endfor%}
+                                        </div>
+                                    </div>
+                                {%endif%} 
+                            {%endfor%}
+                        </div>
+                        {%if lista_ultimos|length >1 %}     
+                            <div>
+                                <a class="carousel-control-prev" href="#carruselNuevos" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carruselNuevos" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="ultimos_productos_2 mt-5">
+                    <h3 class="mb-3">Nuevos productos:</h3>
+                    <div id="carruselNuevos_2" class="carousel slide rounded p-2" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {%for producto in lista_ultimos_2%}
+                                {%if loop.index == 1%}
+                                <div class="carousel-item active">
+                                {%else%}
+                                <div class="carousel-item">
+                                {%endif%}
+                                    <div class="card rounded p-2" style="width: 18rem;">
+                                        <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
+                                        <div class="row">
+                                            <div class="card-body">
+                                                <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
+                                                <a href="/producto_seleccionado/{{producto.id}}">
+                                                    <h5 class="card-title">{{producto.nombre}}</h5>
+                                                </a>
+                                                {% if producto.descuento  %} 
+                                                    <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                    <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                {% else %}
+                                                    <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                                                {% endif %} 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        </div>
+                        {%if lista_ultimos|length >1 %}     
+                            <div>
+                                <a class="carousel-control-prev" href="#carruselNuevos_2" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carruselNuevos_2" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="grandes_descuentos mt-5 mb-5">
+                    <h3 class="mb-3">Grandes descuentos:</h3>
+                    <div id="carruselDescuentos" class="carousel slide rounded p-2" data-ride="carousel">
+                        {%if lista_descuentos|length > 1 %}
+                            <ol class="carousel-indicators">
+                                <li data-target="#carruselDescuentos" data-slide-to="0" class="active"></li>
+                                <li data-target="#carruselDescuentos" data-slide-to="1"></li>
+                                <li data-target="#carruselDescuentos" data-slide-to="2"></li>
+                            </ol>
+                        {%endif%}
+                        <div class="carousel-inner">
+                            {%for productos in lista_descuentos%}
+                                {%if loop.index == 1%}
+                                    <div class="carousel-item active">
+                                        <div class="cards-wrapper">
+                                            {%for producto in productos%}
+                                                <div class="card rounded p-2" style="width: 18rem;">
+                                                    <p class="descuento">-{{producto.descuento}}%</p>
+                                                    <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <a href="/producto_seleccionado/{{producto.id}}">
+                                                            <h5 class="card-title">{{producto.nombre}}</h5>
+                                                        </a>
+                                                        <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                        <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                    </div>
+                                                </div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                {%else%}
+                                    <div class="carousel-item">
+                                        <div class="cards-wrapper">
+                                        {%for producto in productos%}
+                                            <div class="card rounded p-2" style="width: 18rem;">
+                                                <p class="descuento">-{{producto.descuento}}%</p>
+                                                <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <a href="/producto_seleccionado/{{producto.id}}">
+                                                        <h5 class="card-title">{{producto.nombre}}</h5>
+                                                    </a>
+                                                    <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                    <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                </div>
+                                            </div>
+                                        {%endfor%}
+                                        </div>
+                                    </div>
+                                {%endif%} 
+                            {%endfor%}
+                        </div>
+                        {%if lista_descuentos|length > 1 %}     
+                            <div>
+                                <a class="carousel-control-prev" href="#carruselDescuentos" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carruselDescuentos" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="grandes_descuentos_2 mt-5">
+                    <h3 class="mb-3">Grandes descuentos:</h3>
+                    <div id="grandes_descuentos_2" class="carousel slide rounded p-2" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {%for producto in lista_descuentos_2%}
+                                {%if loop.index == 1%}
+                                <div class="carousel-item active">
+                                {%else%}
+                                <div class="carousel-item">
+                                {%endif%}
+                                    <div class="card rounded p-2" style="width: 18rem;">
+                                        <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
+                                        <div class="row">
+                                            <div class="card-body">
+                                                <img class="card-img-top" src="{{producto.imagen}}" alt="Card image cap">
+                                                <a href="/producto_seleccionado/{{producto.id}}">
+                                                    <h5 class="card-title">{{producto.nombre}}</h5>
+                                                </a>
+                                                {% if producto.descuento  %} 
+                                                    <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                                    <p><strong>Oferta:</strong> {{producto.obtener_precio(producto.id)}} Gs.</p>
+                                                {% else %}
+                                                    <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                                                {% endif %} 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        </div>
+                        {%if lista_ultimos|length >1 %}     
+                            <div>
+                                <a class="carousel-control-prev" href="#grandes_descuentos_2" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#grandes_descuentos_2" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <main class="d-flex justify-content-center mt-5 producto">
+            <div class="card mb-3" style="max-width: 1000px;">         
+                <div class="row g-0 mt-1">
+                    <div class="col-md-5">
+                        <p class="descuento">{% if producto.descuento == 0 %}{% else %}-{{producto.descuento}}%{%endif%}</p>
+                        <img src="{{producto.imagen}}" class="img-fluid rounded-start" alt="Card image cap">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body" id="prod-especifico">
+                            <h5 class="card-title">{{producto.nombre}}</h5>
+                            <p class="card-text"><strong>Categoría:</strong> {{funciones.obtener_categoria(producto.categoria_id)}}</p>
+                            <p class="card-text"><strong>Marca:</strong> {{funciones.obtener_marca(producto.marca_id)}}</p>
+                            <p class="card-text"><strong>Descripcción:</strong> {{producto.descripcion}}</p>
+                            {% if producto.descuento  %} 
+                                <p><del><strong>Precio Anterior:</strong> {{producto.precio}} Gs.</del></p>
+                                <p><strong>Oferta:</strong> {{funciones.obtener_precio(producto.id)}} Gs.</p>
+                            {% else %}
+                                <p><strong>Precio:</strong> {{producto.precio}} Gs.</p>
+                            {% endif %}
+                            {% if producto.stock_disponible > 0 %}
+                                <p class="card-text">
+                                    <form action="{{url_for('agregar_carrito')}}" method="post">
+                                        <label for="cantidad"><strong>Cantidad:</strong> </label>
+                                        <input type="number" min="0" name="cantidad">
+                                        <input type="hidden" name="id" value="{{producto.id}}">
+                                        <button class="btn btn-primary" type="submit"><strong>Añadir al carrito</strong></button>
+                                    </form>
+                                </p>
+                            {% else %}
+                                <form action="{{url_for('agregar_lista_deseo')}}" method="post">
+                                    <label for="cantidad" class="d-block"><strong>Producto agotado</strong></label>
+                                    <input type="hidden" name="id" value="{{producto.id}}">
+                                    <button class="btn btn-primary" type="submit"><strong>Añadir a la lista de deseos</strong></button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    {% endblock %}

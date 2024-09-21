@@ -1,0 +1,60 @@
+{% extends '/dashboard/dashboard.html' %}
+
+{% block scripts %}{% endblock %}
+
+{% block h1 %}Productos{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <form class="form-group" action="{{url_for('registrar_categoria')}}" method="post" id="crear_categoria">
+                <label for="nombre_categoria">Categoría:</label>
+                <input type="text" name="nombre" id="nombre_categoria">
+                <button class="btn btn-primary" type="submit">Agregar</button>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <form class="form-group" action="{{url_for('registrar_marca')}}" method="post" id="crear_marca">
+                <label for="nombre_marca">Marca:</label>
+                <input type="text" name="nombre" id="nombre_marca">
+                <button class="btn btn-primary" type="submit">Agregar</button>
+            </form>
+        </div>
+    </div>
+    <div class="mensaje">
+        <h2>¡Advertencia!</h2>
+        <ul id="error"></ul>
+        <button id="aceptar" class="botones">Aceptar</button>
+    </div>
+    <form action="{{url_for('registrar_producto')}}" autocomplete="off" enctype="multipart/form-data" method="post" id="crear_producto">
+        <label for="nombre_producto">Nombre:</label>
+        <input class="form-control" type="text" name="nombre" id="nombre_producto">
+        <label for="descripcion">Descripción:</label>
+        <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
+        <label for="precio">Precio:</label>
+        <input class="form-control" type="number" name="precio" id="precio">
+        <label class="form-label" for="imagen">Imagen:</label>
+        <input  class="form-control form-control-lg" type="file" accept=".jpeg, .png, .jpg" name="imagen">
+        <label for="stock_ideal">Stock Ideal:</label>
+        <input class="form-control" type="number" name="stock_ideal" id="stock_ideal">
+        <label for="stock_disponible">Stock Disponible:</label>
+        <input class="form-control" type="number" name="stock_disponible" id="stock_disponible">
+        <label for="stock_minimo">Stock Mínimo:</label>
+        <input class="form-control" type="number" name="stock_minimo" id="stock_minimo">
+        <label>Marca:</label>
+        <select class="form-control" name="marca">
+            {%for marca in marcas%}
+                <option value="{{marca.id}}">{{marca.nombre}}</option>
+            {% endfor%}
+        </select>
+        <label>Categoría:</label>
+        <select class="form-control" name="categoria">
+            {%for categoria in categorias%}
+                <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+            {% endfor%}
+        </select>
+        <button class="btn btn-primary" style="margin-top: 10px;" type="submit">Agregar</button>
+    </form>
+    
+
+{% endblock %}
